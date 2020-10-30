@@ -1,0 +1,107 @@
+%YAML 1.2
+---
+name: SACS
+
+file_extensions:
+  - inp
+
+scope: source.inp
+
+contexts:
+
+  main:
+    - include: ident
+    - include: overrides
+    - include: ctrparam
+    - include: modelparam
+    - include: comments
+
+  comments:
+    - match: (TITLE|\*)(.*)$
+      scope: comment.line.inp
+
+  ident:
+    - match: \b(END|FILE|HEAD)\b
+      scope: storage.type.inp
+
+  overrides:
+    - match: \b((GR|MB|PG|PL|SH|JNT|PLT)OVR|(GRP|PGRP|MEM|MGR|PGR)OV|SK|DUMMY|GRPOVAL|DEL(ETE|GRP|JNT|MEM))\b
+      scope: storage.modifier.inp
+
+  # CONTROL PARAMETERS
+  ctrparam:
+  # Options
+    - match: \b((CLP|CMB|CNC|DR|DYN|FLT|FT|GAP|GLA|JCN|JS|LD|MOT|MSL|MT|PL|PLT|PSI|PST|STB|SUB|TOW|WAM|WR)OPT|FTOPT(2|3)|MTOPT2|OPTIONS|CLPOP2|DYNOP2)\b
+      scope: variable.parameter.inp # support.type.inp #keyword.control.inp
+  # Select
+    - match: \b(AVG|(BF|BS|ELV|GRM|GRP|JF|JNT|JS|JT|LC|MEM|MOD|PLT|P|PT|RSP|SCF|TM)SEL|SELRSP|CODE|P(T\w+|GB|GD|LG)|CON|TUB)\b
+      scope: string.inp
+
+  # MODELLING PARAMETERS
+  modelparam:
+    # Properties, incl. Concrete
+    - match: \b((SECT(|2)|(|M|P)GRUP|MEMBER|PLATE|)$|OFFSETS|RELIEF|JSLC|GRUPC|PGRUP(2|C)|PSTIF)\b
+      scope: entity.name.type.inp
+  # Pile
+    - match: \b(PLSECT|PLGRUP|PILE|SOIL|P\-Y|SLOC(|SM)|T\-Z|TORSION|LATERAL|TZ(API|AXIAL)|PILSUP)\b
+      scope: entity.name.type.inp
+  # Joint and member end conditions
+    - match: \b(^(MEMBER|JOINT).*([0-2]{6,}|(PINNE|FIXE|PILEH)D))\b
+      scope: support.class.inp
+  # Hydrodynamics
+    - match: \b((W(AVE|IND)|CURR|DAMP).*|WSPEC|AREA|CDM|N(|F)|HYD|DRAG)\b
+      scope: support.function.inp
+  # Loads, Combine module, incl. Dynpac, Rigid
+    - match: \b(LCFAC|L(OAD(|(C|CN|LB|RP).*)|COMB)|DEAD.*|CMB|ST|DY|GLOB|COMP|DIRECT|LC(AS|OND)|SPEC|JTWGT|LDFACT|WEIGHT|ACCL|CENTER|COMB|EQLOAD|MASS|SRSS|DYNMAS)\b
+      scope: constant.other.inp
+  # Collapse module
+    - match: \b(CLP(OP2|RPT)|ENERGY|GRPELA|IMPACT|LDSEQ|MEMELA|NL(JJ|SPRG)|P(GRE|LTE)LA|RSFAC(|O)|SHPIND|YSFACT)\b
+      scope: string.inp
+  # Dynamic response
+    - match: \b(ENGVIB|EQKLOD|FDAMP|FVIB|GRPMD|ICE|JNTPLT|JTNUM|MEMMD|PSDSPC|RS(FUNC|P(EED|SPC|U(1|2)))|SDAMP|SP(CWIN|LAPI|LOAD)|STCMB|TH(BEGIN|COMP|DATA|F(ACT|ORCE)|LOAD)|TIME|UNBAL|USRSP|WINSPC)\b
+      scope: string.inp
+  # Freebody
+    - match: \b(CONN|JNTSL|SUB)\b
+      scope: string.inp
+  # Flotation
+    - match: \b(ANGLE|BEGIN|CLOSE|FL(GRP|LEG|MEM|TNK|WT)|GRPDEL|HOOK(|EL|LD)|JCKO|LEGDEF|MBRDEL|OPEN|PL(OTH|TGRP|TJNT|TRQ)|REFJNT|SL(ING|LENG)|STEP|TANK(C|J)|VALVE)\b
+      scope: string.inp
+  # Fatigue
+    - match: \b(C(ON(SCF|SWF)|RACK)|EXTRACT(|M)|FT(CASE|CO(MB|NT)|OPT(2|3))|(GRP|JNT|MEM|)SCF(|2|LM)|MODE|PCLASS|S\-N|SCATD|SC(OFAC|PER|WAV)|SEAS|SN-USR|SNT(1|2)|TRFN|WVF(REQ|RF))\b
+      scope: string.inp
+  # Gap
+    - match: \b(F\-DEL|GAPELM|GRP|LCGAP|MEM)\b
+      scope: string.inp
+  # Global load analysis
+    - match: \b(LOCATE|(M|P)GRPSL|PLOT|RANGE|SCDIR|SCEND|SFVP|SWPW|WAVRSP)\b
+      scope: string.inp
+  # Joint Can
+    - match: \b(DLOAD|FATIGUE|GMFAC|(A|G|J|U)MOD|INITLC|MAXANG|MSLC|TCHORD|WELD)\b
+      scope: string.inp
+  # Launch
+    - match: \b(ANCHOR|BARGE(|1|2)|FRICT|JACKET|JCK2|LAUNCH|LLODA|LRUNR|PGRDEL|PL(TDEL|TGM)|PSTLNH|RESTART|TUG)\b
+      scope: string.inp
+  # Material takeoff
+    - match: \b(ANODE|CONFIG|DISC|GRP(C|L)ST|ITEM|LCASE|MTOPT2|PG(PC|RPL)ST|WTCTL)\b
+      scope: string.inp
+  # Motion Stability
+    - match: \b(BRGWT|BSPEED|CARGO(|2)|FCOMP|LIB_VES|MOT(PLT|RPT)|POINT|STATN|TOLER|WAV(HED|PER)|WSLOD)\b
+      scope: string.inp
+  # SACS IV
+    - match: \b(CONC|DMOM|DTB|E(L(ASTI|EV)|XCGRP)|GRPRED|JOIN|LCFAC|MASTER|MEMB2|MOMT|OFFSET(|S)|PERSET|PRES|PTEM|RAO|RFLRFD|SCY/SBX|SECSBX|SECSCY|SH(ELL|LGRP)|SOLID|S(PC|PG|TB|TC|TM|TT)|SUBM|SURFDR|SURFID|SURFWT|TEMP|THICK|TPBM|UNIF|WGTFP(|2)|WGT(JT|MEM|NS(|2))|WT(CMB|STR))\b
+      scope: entity.name.type.inp
+  # SACS WAMIT
+    - match: \b(BDOF|BETANG|BLOC|BO(DLN|DY)|BREL|CRANE|CR(G|NJNT)|DAMP|DMPGRP|ENDBOD|FILNAM|FREQ|GEOM|HULL|JCK|JT|MOORLN|OR(|IENT)|PERIOD|PGRPDL|PROP|SELRSP|SUPE|VIEW|WAVHGT|WORK)\b
+      scope: string.inp
+  # Seastate
+    - match: \b(ACCEL|CENTER|EXCGRP|GNTRF|INCRAO|INCWGT|KEEP|MFLO(|2)|MO(TION|V(GRP|LOD|STP))|RE(PGRP|P(LBL|MEM|ORT)|YFAC)|SFRC|SMOM|SURF(DR|ID|WT)|WINSHL)\b
+      scope: string.inp
+  # Superelement
+    - match: \b(CHG(J|L)|LDMAX|MRGLOAD|STF(HEAD|R)|TRAN)\b
+      scope: string.inp
+  # Tow
+    - match: \b(LCRAO|MOTN|POSITION|RBMASS|WAVDEF)\b
+      scope: string.inp
+  # Wave response
+    - match: \b(PERRNG|PLTTF|PSJO|PSMF|(PT|RN)SEED|SEED|TFLCAS|THIST|WAVTIM)\b
+      scope: string.inp
