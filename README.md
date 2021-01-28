@@ -2,7 +2,7 @@
 
 [SACS] is a multi-purpose commercial computer software for performing linear and non-linear static, and dynamic analysis of space frame structures.
 
-The syntax file `sacs.sublime-syntax` included in this repository [color codes][s] the various parameters used in SACS input files (with `.inp` extension) to help break the monotony of text and improve readability of input file(s). It works with [Sublime Text 3][st] in MacOS, Windows 10, or Linux. Below is an example of a syntax highlighted control file:
+The syntax file `sacs.sublime-syntax` included in this repository [color codes][s] the various parameters used in SACS input files (with `.inp` extension) to help break the monotony of text and improve readability of input file(s). It works with [Sublime Text 3][st] in MacOS, Windows 10, or Linux. Below is an example of a syntax highlighted input file:
 
 ![SACS input files syntax highlighted in Sublime Text](./sacs_st.png)
 
