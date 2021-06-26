@@ -8,6 +8,10 @@ The syntax file `sacs.sublime-syntax` included in this repository [color codes][
 
 ## Installation
 
+Here is how-to install package(s) in Sublime Text:
+
+https://user-images.githubusercontent.com/177423/123505842-d5c62000-d693-11eb-903c-6da7322947bc.mov
+
 ### From package control (recommended)
 
 With this package now available from [Package Control][pkg] `sacs_st` can be installed from directly within Sublime Text. Here is how:
