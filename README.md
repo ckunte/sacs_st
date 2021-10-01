@@ -8,9 +8,7 @@ The syntax file `sacs.sublime-syntax` included in this repository [color codes][
 
 ## Installation
 
-Here is how-to install package(s) in Sublime Text:
-
-https://user-images.githubusercontent.com/177423/123505842-d5c62000-d693-11eb-903c-6da7322947bc.mov
+Here [a video on how-to install package(s) in Sublime Text](https://user-images.githubusercontent.com/177423/123505842-d5c62000-d693-11eb-903c-6da7322947bc.mov "Install package(s) in Sublime Text").
 
 ### From package control (recommended)
 
